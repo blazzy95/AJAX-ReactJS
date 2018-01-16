@@ -10,7 +10,8 @@ class Blog extends Component {
 
     state =  {
         posts:[],
-        selectedPostId: null
+        selectedPostId: null,
+        error: false
     }
     
     componentDidMount(){
@@ -23,6 +24,8 @@ class Blog extends Component {
                 }
             })
             this.setState({posts:updatedPosts});
+        }).catch(error => {
+            this.setState({error:true});
         });
     }
 
@@ -32,10 +35,15 @@ class Blog extends Component {
 
     render () {
 
-const posts = this.state.posts.map(
-    posts =>{
-        return <Post key = {posts.id} title={posts.title} author = {posts.author} clicked ={() => this.postSelectedHandler(posts.id)}/>;
-    });
+    let posts = <p style = {{textAligh: 'center'}}>Something went wrong</p>
+
+    if(!this.state.error)
+    {
+        posts = this.state.posts.map(
+            posts =>{
+                return <Post key = {posts.id} title={posts.title} author = {posts.author} clicked ={() => this.postSelectedHandler(posts.id)}/>;
+            });
+    }
 
         return (
             <div>

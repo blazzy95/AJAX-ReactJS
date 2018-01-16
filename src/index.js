@@ -23,5 +23,7 @@ axios.interceptors.response.use(response =>{
     return Promise.reject(error); 
 });
 
+//axios.interceptors.request.eject(myInterceptor); to remove incerceptors
+
 ReactDOM.render( <App />, document.getElementById( 'root' ) );
 registerServiceWorker();

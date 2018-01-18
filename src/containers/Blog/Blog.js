@@ -1,50 +1,12 @@
 import React, { Component } from 'react';
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
-//import axios from 'axios';
 import axios from '../../axios';
 import './Blog.css';
+import Posts from './Posts/Posts'
+import {Route} from 'react-router-dom';
 
 class Blog extends Component {
 
-    state =  {
-        posts:[],
-        selectedPostId: null,
-        error: false
-    }
-    
-    componentDidMount(){
-        axios.get('/posts').then(response => {
-            const posts = response.data.slice(0,4);
-            const updatedPosts = posts.map(post => {
-                return{
-                    ...post,
-                    author: 'Max'
-                }
-            })
-            this.setState({posts:updatedPosts});
-        }).catch(error => {
-            this.setState({error:true});
-        });
-    }
-
-    postSelectedHandler = (id) =>{
-        this.setState({selectedPostId:id});
-    }
-
     render () {
-
-    let posts = <p style = {{textAligh: 'center'}}>Something went wrong</p>
-
-    if(!this.state.error)
-    {
-        posts = this.state.posts.map(
-            posts =>{
-                return <Post key = {posts.id} title={posts.title} author = {posts.author} clicked ={() => this.postSelectedHandler(posts.id)}/>;
-            });
-    }
-
         return (
             <div className ="Blog">
                 <header>
@@ -55,18 +17,11 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
-                    <FullPost id ={this.state.selectedPostId}/>
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+                <Route path ="/"/>
             </div>
         );
     }
 }
 
 export default Blog;
+
